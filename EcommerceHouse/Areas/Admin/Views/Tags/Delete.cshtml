@@ -1,0 +1,25 @@
+﻿@model EcommerceHouse.Models.Tags
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />
+<h2 class="text-dark">Delete Bedrooms</h2>
+
+<form method="post" asp-action="Delete">
+    <div class="p-4 border rounded">
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="TagName">Bedrooms</label>
+            </div>
+            <div class="col-5">
+                <input asp-for="TagName" disabled class="form-control" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-danger" asp-route-id="@Model.Id" value="Delete" />
+            <a asp-action="Index" class="btn btn-dark">Back to List</a>
+        </div>
+    </div>
+</form>

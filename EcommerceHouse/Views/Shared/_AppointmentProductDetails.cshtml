@@ -1,0 +1,49 @@
+﻿@model List<EcommerceHouse.Models.Products>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@if (Model.Count > 0)
+{
+<table class="table table-striped" width="100%">
+    <tr class="table-dark">
+        <th style="text-align:center; width:20%"></th>
+        <th style="text-align:center;">
+            <label>Location</label>
+        </th>
+        <th style="text-align:center;">
+            <label>Price</label>
+        </th>
+        <th>
+            <label>Bedrooms</label>
+        </th>
+        
+        <th style="text-align:center;"></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr style="padding:50px;">
+            <td>
+                <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                    <img src="@item.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px; border:1px solid #808080;" />
+                </a>
+            </td>
+            <td style="text-align:center;">
+                @Html.DisplayFor(c => item.Name)
+            </td>
+            <td style="text-align:center;">
+                @Html.DisplayFor(c => item.Price)
+            </td>
+            <td style="text-align:center;">
+                @Html.DisplayFor(c => item.Tags.TagName)
+            </td>
+            <td style="text-align:center;">
+               
+            </td>
+        </tr>
+    }
+</table>
+}
+else
+{
+    <h3 class="text-danger"><i class="fa fa-ban"></i> No Appointments have been Added</h3>
+}

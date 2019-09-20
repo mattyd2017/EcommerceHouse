@@ -1,0 +1,19 @@
+﻿@model EcommerceHouse.Models.ViewModel.ShoppingCartViewModel
+@{
+    ViewData["Title"] = "AppointmentConfirmation";
+}
+
+<br />
+<h2 class="text-dark">Call back Appointment confirmation</h2>
+<div class="form-text">
+    Thank you for your interest in these propertys. Your call back has been booked. One of our professional and talented infomative agents will be in contact very soon in relation to your
+    enquiry if you wish to contact us about anything else before that please feel free to contact us at any time......
+</div>
+<br />
+<partial name="~/Views/Shared/_AppointmentCustomerDetails.cshtml" model="Model.Appointments" />
+<br />
+<hr>
+<partial name="~/Views/Shared/_AppointmentProductDetails.cshtml" model="Model.Products" />
+
+<a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-dark btn-outline-dark">Back to Propertys</a>
+

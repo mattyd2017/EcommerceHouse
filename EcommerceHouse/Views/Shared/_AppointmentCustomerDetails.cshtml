@@ -1,0 +1,46 @@
+﻿@model EcommerceHouse.Models.Appointments
+
+<h4 class="text-success">Call Back Appointments</h4>
+
+<div style="height:100px;background-color:aliceblue;" class="container border">
+    <div class="col-12">
+        <div class="row" style="padding-top:10px;">
+            <div class="col-2">
+                Full Name
+            </div>
+            <div class="col-3">
+                <input asp-for="@Model.CustomerName" readonly class="form-control" />
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-2">
+                Email
+            </div>
+            <div class="col-3">
+                <input asp-for="@Model.CustomerEmail" readonly class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row" style="padding-top:10px;">
+            <div class="col-2">
+                Phone Number
+            </div>
+            <div class="col-3">
+                <input asp-for="@Model.CustomerPhoneNumber" readonly class="form-control" />
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-2">
+                Call back Date
+            </div>
+            <div class="col-3"style="padding-bottom:15px;">
+                <input asp-for="@Model.AppointmentDate" readonly class="form-control" />
+            </div>
+            <br />
+        </div>
+    </div>
+</div>
+

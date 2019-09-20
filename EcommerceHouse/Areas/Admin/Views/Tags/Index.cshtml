@@ -1,0 +1,39 @@
+﻿@model IEnumerable<EcommerceHouse.Models.Tags>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-dark">Tags List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-dark"><i class="fa fa-plus"></i>&nbsp; New Tag</a>
+    </div>
+</div>
+<br />
+<div>
+    <table class="table table-striped border">
+        <tr class="table-dark">
+            <th>
+                @Html.DisplayNameFor(m => m.TagName)
+            </th>
+            <th></th>
+            <th></th>
+
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.TagName)
+                </td>
+                <td>
+                    <partial name="_TableButtonPartial" model="item.Id" />
+                </td>
+            </tr>
+        }
+    </table>
+</div>

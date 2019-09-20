@@ -1,0 +1,109 @@
+﻿@model EcommerceHouse.Models.Products
+@using EcommerceHouse.Extensions
+@using Microsoft.AspNetCore.Http
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+<br />
+<h2 class="text-dark">House Details</h2>
+
+<form method="post">
+    <div class="p-4 border rounded row">
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Name">Location</label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Name" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Tags">Bedroom</label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Tags.TagName" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Type">Description</label>
+                </div>
+                <div class="col-8">
+                    <textarea asp-for="Type" class="form-control" readonly></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Price"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Price" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ProductTypes">House Type</label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="ProductTypes.Name" class="form-control" readonly />
+                </div>
+            </div>
+
+
+
+            <div class="form-group row">
+                <div class="col-4">
+                </div>
+                <div class="col-8">
+                    @if (Model.Available)
+                    {
+
+                        bool isInBag = false;
+                        List<int> latCart = HttpContextAccessor.HttpContext.Session.Get<List<int>>("sShoppingCart");
+                        if (latCart != null && latCart.Contains(Model.Id))
+                        {
+                            isInBag = true;
+                        }
+                        if (isInBag)
+                        {
+                            <button type="submit" value="Remove From Cart"asp-action="remove" asp-route-id="@Model.Id" class="btn btn-danger btn-outline-danger form-control">Cancel Appointment</button>
+                        }
+                        else
+                        {
+                        <button type="submit" value="Add to Cart" asp-route-id="@Model.Id" class="btn btn-success btn-outline-success form-control">book Appointment</button>
+                        }
+                    }
+                    else
+                    {
+                        <button type="submit" value="Add to Cart" asp-route-id="@Model.Id" disabled class="btn btn-success btn-outline-success form-control">No Appointments</button>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+        </div>
+        <div class="col-3">
+            <img src="@Model.Image" width="100%" class="productImage" style="border-radius:5px; border:1px solid #808080;" />
+            <br />
+            <br />
+            @if(Model.Available)
+            {
+                <img src="~/images/forsale.png" width="50%"/>
+            }
+            else if(!Model.Available)
+            {
+                <img src="~/images/sold.jpg" width="50%" />
+            }
+
+        </div>
+        <br />
+        <div class="form-group">
+            <input hidden asp-for="Id" />
+            <a asp-action="Index" class="btn btn-dark btn btn-outline-dark">Back to List</a>
+        </div>
+    </div>
+</form>
+
+

@@ -1,0 +1,124 @@
+﻿@model EcommerceHouse.Models.ViewModel.ShoppingCartViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<form method="post">
+    <br />
+    <br />
+    <h2 class="text-dark">Your Appointments</h2>
+    <br />
+    @if(Model.Products.Count > 0)
+    {
+        <div class="container border border-dark rounded" style="padding:15px;">
+            <div class="row">
+                <div class="col-8" style="border-right:1px solid #808080;">
+                    <table class="table table-striped" width="100%">
+                        <tr class="table-dark">
+                            <th style="text-align:center; width:20%"></th>
+                            <th style="text-align:center;">
+                                <label>Location</label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label>Price</label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label>Bedrooms</label>
+                            </th>
+                            <th style="text-align:center;"></th>
+                        </tr>
+                        @foreach(var item in Model.Products)
+                        {
+                        <tr style="padding:50px;">
+                            <td>
+                                <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                                    <img src="@item.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px; border:1px solid #808080;" />
+                                </a>
+                            </td>
+                            <td style="text-align:center;">
+                                @Html.DisplayFor(c => item.Name)
+                            </td>
+                            <td style="text-align:center;">
+                                @Html.DisplayFor(c => item.Price)
+                            </td>
+                            <td style="text-align:center;">
+                                @Html.DisplayFor(c => item.Tags.TagName)
+                            </td>
+                            <td style="text-align:center;">
+                               <button type="submit" class="btn btn-danger btn-outline-danger" asp-action="remove" asp-route-id="@item.Id"><i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        }
+                    </table>
+                </div>
+                <div class="col-4" style="padding-left:30px;">
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="text-success" style="text-align:justify;"><b>Please fill in your details and a conveinent time to call and one of our agents will be in touch</b></label>
+                            <hr style="border: 1px solid black;" />
+                        </div>
+                        
+                        <div class="col-12">
+                            <label>Name : </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px;">
+                            <input asp-for="@Model.Appointments.CustomerName" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Phone Number : </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px;">
+                            <input asp-for="@Model.Appointments.CustomerPhoneNumber" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Email : </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px;">
+                            <input asp-for="@Model.Appointments.CustomerEmail" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Choose a date to contact you : </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px;">
+                            <input asp-for="@Model.Appointments.AppointmentDate" value="" type="text" id="datepicker" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Choose a time to contact you : </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px;">
+                            <input asp-for="@Model.Appointments.AppointmentTime" value="" type="text" class="timepicker form-control" />
+                        </div>
+                        <div class="col-12" style="padding-top:15px;">
+                            <button type="submit" id="btnPlaceOrder" class="btn btn-success btn-outline-success">Book An Appointment</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <h5 class="text-danger"><i class="fa fa-ban"></i> No Appointments Requested....</h5>
+    }
+</form>
+@section Scripts{ 
+    <script>
+            $('.timepicker').timepicker({
+                timeFormat: 'h:mm p',
+            interval: 30,
+            minTime: '8',
+            maxTime: '7:00pm',
+            startTime: '9:00',
+            dynamic: true,
+            dropdown: true,
+            scrollbar: true
+        });
+        $(function () {
+            $("#datepicker").datepicker({
+                    dateFormat: "dd/mm/yy",
+                    minDate: +1, maxDate: "+3M"
+                });
+        });
+    </script>
+}

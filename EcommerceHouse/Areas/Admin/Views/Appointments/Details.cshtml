@@ -1,0 +1,117 @@
+﻿@model EcommerceHouse.Models.ViewModel.AppointmentDetailsViewModel
+@using EcommerceHouse.Extensions
+@using EcommerceHouse.Utility
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br />
+<h2 class="text-dark">Appointment Details</h2>
+
+
+<div class="p-4 border rounded row">
+    <div class="col-6">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Appointment.CustomerName">Customer Name</label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Appointment.CustomerName" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Appointment.CustomerEmail">Customer Email</label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Appointment.CustomerEmail" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Appointment.AppointmentDate">Appointment Date</label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Appointment.AppointmentDate" disabled type="text" id="datepicker" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Appointment.AppointmentTime">Appointment Time</label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Appointment.AppointmentTime" disabled type="text" id="timepicker" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Appointment.CustomerPhoneNumber">Customer Phone Number</label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Appointment.CustomerPhoneNumber" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Appointment.SalesPerson">Appointed Sales Agent</label>
+            </div>
+            <div class="col-8">
+                @if (User.IsInRole(SD.AdminEndUser))
+                {
+                    <input asp-for="@Model.Appointment.SalesPerson.Name" disabled class="form-control" />
+                    <input asp-for="@Model.Appointment.SalesPersonId" hidden />
+                }
+                else
+                {
+                    <select asp-for="@Model.Appointment.SalesPersonId" disabled asp-items="Model.SalesPerson.ToSelectListItemString(Model.Appointment.SalesPersonId)" class="form-control"></select>
+                }
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Appointment.IsComfirmed">Appointment Confirmation</label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Appointment.IsComfirmed" disabled class="form-control" />
+            </div>
+
+        </div>
+    </div>
+    <div class="col-6">
+        <partial name="~/Views/Shared/_AppointmentProductDetails.cshtml" model="Model.Products" />
+    </div>
+    <br />
+    <div class="form-group">
+        <a asp-action="Index" class="btn btn-dark">Back to List</a>
+    </div>
+</div>
+@section Scripts{
+   
+    <script>
+       
+        $(document).ready(function () {
+            var appointmentTime = document.getElementById('datepicker').value;
+            var splitData = "";
+            if (appointmentTime.indexOf(" ") > 0) {
+                splitData = appointmentTime.split(" ");
+            }
+            else {
+                splitData = appointmentTime.split("T");
+            }
+            var time = splitData[1].substring(0, 5);
+            if (time.slice(-1) == ":") {
+                time = time.substring(0, time.length - 1);
+            }
+            var amPmTime = splitData[2];
+            $('#datepicker').attr('value', splitData[0]);
+            $('#timepicker').attr('value', time + ' ' + amPmTime);
+        });
+    </script>
+}
+
+
+
+
+
+
+
